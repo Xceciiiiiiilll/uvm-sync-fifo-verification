@@ -10,7 +10,6 @@ module sync_fifo #(
     output logic [WIDTH-1:0] rd_data,
     output logic             full,
     output logic             empty
-    // Optional: almost_full, almost_empty
 );
 
     logic [WIDTH-1:0] mem [0:DEPTH-1];

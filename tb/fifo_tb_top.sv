@@ -33,7 +33,7 @@ module fifo_tb_top;
     // Reset generation
     initial begin
         rst_n = 0;
-        #40;
+        #10;
         rst_n = 1;
     end
 
@@ -46,11 +46,22 @@ module fifo_tb_top;
             "vif",
             fifo_if_inst
         );
-
-        // Optional: also set for test if needed
+      uvm_config_db #(virtual fifo_if.MONITOR)::set(
+            null,
+            "uvm_test_top.env.agent.wr_mon",
+            "vif",
+            fifo_if_inst
+        );
+       uvm_config_db #(virtual fifo_if.MONITOR)::set(
+            null,
+            "uvm_test_top.env.agent.rd_mon",
+            "vif",
+            fifo_if_inst
+        );
+      // set interface for scoreboard
         uvm_config_db #(virtual fifo_if)::set(
             null,
-            "uvm_test_top",
+            "uvm_test_top.env.scoreboard",
             "vif",
             fifo_if_inst
         );

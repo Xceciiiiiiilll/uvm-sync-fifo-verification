@@ -11,7 +11,8 @@ package fifo_pkg;
     typedef class fifo_seq_item;
     typedef class fifo_base_sequence;
     typedef class fifo_driver;
-    typedef class fifo_monitor;
+    typedef class fifo_read_monitor;
+    typedef class fifo_write_monitor;
     typedef class fifo_scoreboard;
     typedef class fifo_agent;
     typedef class fifo_env;
@@ -21,8 +22,9 @@ package fifo_pkg;
     `include "fifo_seq_item.sv"
     `include "fifo_sequence.sv"
      `include "fifo_driver.sv" 
-     `include "fifo_monitor.sv"  
-    // `include "fifo_scoreboard.sv" ← uncomment later
+     `include "fifo_read_monitor.sv"
+     `include "fifo_write_monitor.sv"  
+     `include "fifo_scoreboard.sv" 
      `include "fifo_agent.sv"
      `include "fifo_env.sv"
      `include "fifo_base_test.sv"
