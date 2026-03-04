@@ -28,6 +28,8 @@ class fifo_write_monitor extends uvm_monitor;
           	 txn.wr_en = vif.cb_mon.wr_en;
              txn.rd_en = vif.cb_mon.rd_en;
              txn.wr_data = vif.cb_mon.wr_data;
+             txn.empty = vif.cb_mon.empty;
+             txn.full = vif.cb_mon.full;
               
          	 ap.write(txn);
               
