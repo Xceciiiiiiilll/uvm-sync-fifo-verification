@@ -1,3 +1,6 @@
+// ───────────────────────────────────────────────
+//   BASE TEST
+// ───────────────────────────────────────────────
 class fifo_base_test extends uvm_test;
 
     `uvm_component_utils(fifo_base_test)

@@ -1,6 +1,9 @@
-    `uvm_analysis_imp_decl(_wr)
-	`uvm_analysis_imp_decl(_rd)
-
+`uvm_analysis_imp_decl(_wr)
+`uvm_analysis_imp_decl(_rd)
+// ───────────────────────────────────────────────
+//   SCOREBOARD
+// ───────────────────────────────────────────────
+      
       class fifo_scoreboard extends uvm_scoreboard;
         `uvm_component_utils(fifo_scoreboard)
 
@@ -28,6 +31,7 @@
             
         endfunction
         
+            
             // write function implementation for writes
         function void write_wr(fifo_seq_item txn);
               if (model_q.size() == DEPTH) begin
@@ -46,13 +50,14 @@
           end
           
    		  expected = model_q.pop_front();
+          
           // Check for X/Z on read data
           if ($isunknown(txn.rd_data)) begin
             `uvm_error("X_DETECTED",
               $sformatf("Read data contains X/Z: %0h", txn.rd_data))
             return;
           end
-
+          
           if (txn.rd_data !== expected) begin
             `uvm_error("DATA_MISMATCH",$sformatf("Expected %0h Got %0h", expected, txn.rd_data))
 		  end
