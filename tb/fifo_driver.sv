@@ -1,3 +1,6 @@
+// ───────────────────────────────────────────────
+//   DRIVER
+// ───────────────────────────────────────────────
 class fifo_driver extends uvm_driver #(fifo_seq_item);
 
     `uvm_component_utils(fifo_driver)
@@ -15,9 +18,9 @@ class fifo_driver extends uvm_driver #(fifo_seq_item);
     endfunction
 
     task run_phase(uvm_phase phase);
+            fifo_seq_item item;      
         forever begin
-            fifo_seq_item item;
-            seq_item_port.get_next_item(item);
+          seq_item_port.get_next_item(item);
 
             @(vif.cb_drv);
             vif.cb_drv.wr_en   <= item.wr_en;
@@ -27,9 +30,8 @@ class fifo_driver extends uvm_driver #(fifo_seq_item);
             @(vif.cb_drv);
             vif.cb_drv.wr_en  <= 0;
             vif.cb_drv.rd_en  <= 0;
-
+          
             seq_item_port.item_done();
         end
     endtask
 endclass
-

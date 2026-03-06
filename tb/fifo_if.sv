@@ -1,7 +1,6 @@
-// tb/fifo_if.sv
-`ifndef FIFO_IF_SV
-`define FIFO_IF_SV
-
+// ───────────────────────────────────────────────
+//   INTERFACE
+// ───────────────────────────────────────────────
 interface fifo_if #(
     parameter int DEPTH = 16,
     parameter int WIDTH = 8
@@ -47,6 +46,3 @@ interface fifo_if #(
     );
 
 endinterface
-
-
-`endif

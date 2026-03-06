@@ -1,3 +1,7 @@
+// ───────────────────────────────────────────────
+//   MONITOR RD
+// ───────────────────────────────────────────────
+      
 class fifo_read_monitor extends uvm_monitor;
   		`uvm_component_utils(fifo_read_monitor)
         
@@ -20,24 +24,27 @@ class fifo_read_monitor extends uvm_monitor;
         task run_phase(uvm_phase phase);
           fifo_seq_item txn;
           
+          txn = fifo_seq_item::type_id::create("txn");
+
           forever begin
              @(vif.cb_mon);
-            if(vif.cb_mon.rd_en && !vif.cb_mon.empty) begin
             
+            // capture control signals before waiting for data 
+           txn.empty = vif.cb_mon.empty;
+           txn.full = vif.cb_mon.full;
+           txn.wr_en = vif.cb_mon.wr_en;
+           txn.rd_en = vif.cb_mon.rd_en;
+              
+              
             // one cycle delay for read data  
             @(vif.cb_mon);
               
-         	 txn = fifo_seq_item::type_id::create("txn");
-          	 txn.wr_en = vif.cb_mon.wr_en;
-             txn.rd_en = vif.cb_mon.rd_en;
              txn.rd_data = vif.cb_mon.rd_data;
-             txn.empty = vif.cb_mon.empty;
-             txn.full = vif.cb_mon.full;
+
               
          	 ap.write(txn);
               
               `uvm_info("READ_MON", $sformatf("Read observed: %0h", txn.rd_data), UVM_LOW);
-            end
           end
         endtask
         

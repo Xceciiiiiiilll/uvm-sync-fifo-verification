@@ -1,3 +1,6 @@
+// ───────────────────────────────────────────────
+//   ENVIRONMENT
+// ───────────────────────────────────────────────
 class fifo_env extends uvm_env;
 
     `uvm_component_utils(fifo_env)

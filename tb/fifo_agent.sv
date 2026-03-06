@@ -1,3 +1,6 @@
+// ───────────────────────────────────────────────
+//   AGENT
+// ───────────────────────────────────────────────
 class fifo_agent extends uvm_agent;
 
     `uvm_component_utils(fifo_agent)
@@ -8,8 +11,8 @@ class fifo_agent extends uvm_agent;
     fifo_read_monitor rd_mon;
   	fifo_coverage coverage;
   
-    uvm_analysis_port #(fifo_seq_item) write_ap;
-    uvm_analysis_port #(fifo_seq_item) read_ap;
+  uvm_analysis_port #(fifo_seq_item) write_ap;
+  uvm_analysis_port #(fifo_seq_item) read_ap;
   
     uvm_active_passive_enum is_active = UVM_ACTIVE;
 
@@ -45,3 +48,4 @@ class fifo_agent extends uvm_agent;
     endfunction
 
 endclass
+

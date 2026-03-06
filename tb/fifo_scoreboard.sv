@@ -34,12 +34,15 @@
             
             // write function implementation for writes
         function void write_wr(fifo_seq_item txn);
+          if(txn.wr_en) begin
               if (model_q.size() == DEPTH) begin
       			`uvm_error("MODEL_OVERFLOW","Model overflow")
               end
-    	else begin
-          model_q.push_back(txn.wr_data);
-    	end
+              else 
+                model_q.push_back(txn.wr_data);
+
+          end
+            
         endfunction
         
          // write function implementation for reads
@@ -49,22 +52,24 @@
             return;
           end
           
-   		  expected = model_q.pop_front();
+          if(txn.rd_en) begin
+              expected = model_q.pop_front();
+
+              // Check for X/Z on read data
+              if ($isunknown(txn.rd_data)) begin
+                `uvm_error("X_DETECTED",
+                  $sformatf("Read data contains X/Z: %0h", txn.rd_data))
+                return;
+              end
+
+              if (txn.rd_data !== expected) begin
+                `uvm_error("DATA_MISMATCH",$sformatf("Expected %0h Got %0h", expected, txn.rd_data))
+              end
+              else begin
+                `uvm_info("MATCH",$sformatf("Matched %0h", txn.rd_data), UVM_LOW)
+        end
           
-          // Check for X/Z on read data
-          if ($isunknown(txn.rd_data)) begin
-            `uvm_error("X_DETECTED",
-              $sformatf("Read data contains X/Z: %0h", txn.rd_data))
-            return;
           end
-          
-          if (txn.rd_data !== expected) begin
-            `uvm_error("DATA_MISMATCH",$sformatf("Expected %0h Got %0h", expected, txn.rd_data))
-		  end
-    	  else begin
-            `uvm_info("MATCH",$sformatf("Matched %0h", txn.rd_data), UVM_LOW)
-    end
-          
         endfunction
         
         

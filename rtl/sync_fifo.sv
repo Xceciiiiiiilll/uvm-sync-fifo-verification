@@ -27,7 +27,7 @@ module sync_fifo #(
     // Read logic (similar for rd_ptr)
     always_ff @(posedge clk or negedge rst_n) begin
       if (!rst_n) rd_ptr <= 0;
-      else if (rd_en && !full) begin
+      else if (rd_en && !empty) begin
         rd_data <= mem[rd_ptr[$clog2(DEPTH)-1:0]];
             rd_ptr <= rd_ptr + 1;
         end

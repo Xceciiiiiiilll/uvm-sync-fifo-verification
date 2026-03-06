@@ -1,3 +1,6 @@
+// ───────────────────────────────────────────────
+//   COVERAGE
+// ───────────────────────────────────────────────
       class fifo_coverage extends uvm_subscriber #(fifo_seq_item);
         `uvm_component_utils(fifo_coverage)
 
@@ -29,12 +32,9 @@
       	bins not_empty= {0};
     	}
 
-    // Example useful crosses
-    cross wr_en, rd_en;
     cross wr_en, full;
     cross rd_en, empty;
-    // Add more: almost full + read attempts, wr_data patterns, etc.
-
+ 
       endgroup
         
         
@@ -61,3 +61,4 @@
   endfunction
 
       endclass
+        
