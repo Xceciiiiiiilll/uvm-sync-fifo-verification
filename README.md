@@ -28,4 +28,4 @@ Functional coverage: 100%
 - [X] Basic UVM env
 - [X] Coverage & scoreboard
 
-Tools: Questa/VCS/EDA Playground
+Tools: Questa/EDA Playground
